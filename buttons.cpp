@@ -13,11 +13,15 @@ void Buttons::initialize() {
     pinMode(DOWN, INPUT_PULLUP);
     pinMode(BACK, INPUT_PULLUP);
     pinMode(SELECT, INPUT_PULLUP);
+    if(EnableBuzzer){
+        pinMode(BUZZER_PIN, OUTPUT);
+    }
 }
 
 bool Buttons::getStatus(int thisButton) {
     bool buttonStatus=digitalRead(thisButton);
     if(!buttonStatus){
+        buttonPressed=thisButton;
         return true;
     }else{
         return false;
@@ -29,32 +33,48 @@ void Buttons::setDebug(bool debugStatus) {
 }
 
 void Buttons::update() {
-    if(getStatus(UP) && !buttonToggle){
+    if(!buttonToggle && (getStatus(UP) || getStatus(DOWN) || getStatus(BACK) || getStatus(SELECT))){
         buttonToggle=true;
-        if(buttonTest){
-            Serial.println("Pressed UP");
+        switch(buttonPressed){
+            case UP:
+                if(buttonTest){
+                    Serial.println("UP Button Pressed");
+                }
+                break;
+            case DOWN:
+                if(buttonTest){
+                    Serial.println("DOWN Button Pressed");
+                }
+                break;
+            case BACK:
+                if(buttonTest){
+                    Serial.println("BACK Button Pressed");
+                }
+                break;
+            case SELECT:    
+                if(buttonTest){
+                    Serial.println("SELECT Button Pressed");
+                }
+                break;            
+            default:
+                break;
         }
-    }
-    if(getStatus(DOWN) && !buttonToggle){
-        buttonToggle=true;
-        if(buttonTest){
-            Serial.println("Pressed DOWN");
-        }
-    }
-    if(getStatus(BACK) && !buttonToggle){
-        buttonToggle=true;
-        if(buttonTest){
-            Serial.println("Pressed BACK");
-        }
-    }
-    if(getStatus(SELECT) && !buttonToggle){
-        buttonToggle=true;
-        if(buttonTest){
-            Serial.println("Pressed SELECT");
+
+        if(EnableBuzzer){
+            tone(BUZZER_PIN, buzzerFrequency, 50);
         }
     }
 
     if(!getStatus(UP) && !getStatus(DOWN) && !getStatus(BACK) && !getStatus(SELECT)){
         buttonToggle=false;
+        buttonPressed=0;
     }
+}
+
+void Buttons::enableBuzzer(bool buzzerStatus) {
+    EnableBuzzer=buzzerStatus;
+}
+
+void Buttons::setBuzzerFrequency(uint16_t frequency) {
+    buzzerFrequency=frequency;
 }

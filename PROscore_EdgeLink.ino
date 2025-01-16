@@ -33,14 +33,31 @@
 #include "buttons.h"
 #include "variables.h"
 
+#include <U8g2lib.h>
+
 
 Buttons btn;
+U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
+
+
+
 
 void setup() {
-    Serial.begin(115200);
-    btn.initialize();
-    btn.setDebug(false);
 
+    Serial.begin(115200);
+    
+    u8g2.begin();
+
+    displayCenterOnly("PROscore EdgeLink");
+    delay(2000);
+    displayCenterOnly("Booting...");
+    delay(2000);
+    displayCenterOnly("Initializing...");
+    btn.initialize();
+    btn.setDebug(true);
+    btn.enableBuzzer(true);
+    btn.setBuzzerFrequency(2000);
+    delay(2000);
 }
 
 
