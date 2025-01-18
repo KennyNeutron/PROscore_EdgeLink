@@ -39,8 +39,7 @@
 Buttons btn;
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 
-
-
+uint16_t nowDisplaying = 0x00000;
 
 void setup() {
 
@@ -64,15 +63,7 @@ void setup() {
 void loop(){
     btn.update();
     Display_Main();
-
-    if(!btn.isFunctionExecuted() && btn.getPressedButton() == "DOWN"){
-        btn.functionExecuted();
-        selection_current++;
-    }
-    if(!btn.isFunctionExecuted() && btn.getPressedButton() == "UP"){
-        btn.functionExecuted();
-        selection_current--;
-    }
+    Display_Button_Functions();
 }
 
 
