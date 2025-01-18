@@ -55,15 +55,24 @@ void setup() {
     displayCenterOnly("Initializing...");
     btn.initialize();
     btn.setDebug(true);
-    btn.enableBuzzer(true);
-    btn.setBuzzerFrequency(2000);
+    btn.enableBuzzer(false);
+    btn.setBuzzerType("active");
     delay(2000);
 }
 
 
 void loop(){
     btn.update();
+    Display_Main();
 
+    if(!btn.isFunctionExecuted() && btn.getPressedButton() == "DOWN"){
+        btn.functionExecuted();
+        selection_current++;
+    }
+    if(!btn.isFunctionExecuted() && btn.getPressedButton() == "UP"){
+        btn.functionExecuted();
+        selection_current--;
+    }
 }
 
 
