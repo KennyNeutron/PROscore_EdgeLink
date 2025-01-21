@@ -48,5 +48,7 @@ bool TeamNameSetupMode = false;
 
 
 //############# SYSTEM VARIABLES ##############
-int selection_current=0;
+uint8_t selection_current=1;
+const byte address[6] = "ZK001";
+uint16_t nowDisplaying = 0x00000;
 //#############################################

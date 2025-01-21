@@ -32,38 +32,57 @@
 #include "DataStructure_payload.h"
 #include "buttons.h"
 #include "variables.h"
-
+#include <Wire.h>
 #include <U8g2lib.h>
+#include <SPI.h>
+#include <nRF24L01.h>
+#include <RF24.h>
 
-
+RF24 NRF(4, 5);  // CE, CSN
 Buttons btn;
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 
-uint16_t nowDisplaying = 0x00000;
+
 
 void setup() {
+  Serial.begin(115200);
+  Serial.println("System Starting...");
+  u8g2.begin();
 
-    Serial.begin(115200);
-    
-    u8g2.begin();
+  // displayCenterOnly("PROscore EdgeLink");
+  // delay(2000);
+  // displayCenterOnly("Booting...");
+  // delay(2000);
+  // displayCenterOnly("Initializing...");
+  btn.initialize();
+  btn.setDebug(true);
+  btn.enableBuzzer(false);
+  btn.setBuzzerType("active");
+  delay(2000);
 
-    displayCenterOnly("PROscore EdgeLink");
-    delay(2000);
-    displayCenterOnly("Booting...");
-    delay(2000);
-    displayCenterOnly("Initializing...");
-    btn.initialize();
-    btn.setDebug(true);
-    btn.enableBuzzer(false);
-    btn.setBuzzerType("active");
-    delay(2000);
+  if (!NRF.begin()) {
+    Serial.println("NRF24L01 is Broken or Hardware Not Installed");
+  } else {
+    Serial.println("NRF24L01 detected!");
+  }
+  NRF.setPALevel(RF24_PA_MAX);
+  NRF.setDataRate(RF24_250KBPS);
+  NRF.openReadingPipe(0, address);
+  NRF.startListening();
 }
 
 
-void loop(){
-    btn.update();
-    Display_Main();
-    Display_Button_Functions();
+void loop() {
+  btn.update();
+
+  switch (nowDisplaying) {
+    case 0x00000:
+      Display_Main();
+      Display_Main_ButtonFunctions();
+      break;
+    case 0x0003:
+      display_PROscore();
+      display_PROscore_ButtonFunctions();
+      break;
+  }
 }
-
-

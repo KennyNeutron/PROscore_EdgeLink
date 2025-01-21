@@ -14,9 +14,12 @@ String str_menu[]{ "NRF24L01 Tester", "PSWDBS TX", "PSWDBS RX", "HC-05" };
 void Display_Main() {
   u8g2.clearBuffer();
 
+
   u8g2.setFontPosTop();
   u8g2.setFont(u8g2_font_boutique_bitmap_7x7_t_all);
-  u8g2.drawStr(0, 0, "01");
+  char hexStr[6];                         // Buffer to store the hex string (4 digits + "0x" + null terminator)
+  sprintf(hexStr, "%04X", nowDisplaying);  // Format the value as a 4-digit hexadecimal string
+  u8g2.drawStr(0, 0, hexStr);             // Print the hexadecimal value
   u8g2.drawStr(90, 0, "Main Menu");
 
   u8g2.setFont(u8g2_font_7x13_tf);
@@ -26,13 +29,13 @@ void Display_Main() {
   u8g2.drawStr(10, 51, str_menu[2].c_str());
 
   switch (selection_current) {
-    case 0:
+    case 1:
       u8g2.drawRFrame(0, 13, 125, 15, 7);
       break;
-    case 1:
+    case 2:
       u8g2.drawRFrame(0, 31, 125, 15, 7);
       break;
-    case 2:
+    case 3:
       u8g2.drawRFrame(0, 49, 125, 15, 7);
       break;
     default:
@@ -43,7 +46,7 @@ void Display_Main() {
 }
 
 
-void Display_Button_Functions() {
+void Display_Main_ButtonFunctions() {
   switch (nowDisplaying) {
     case 0x0000:
       if (!btn.isFunctionExecuted() && btn.getPressedButton() == "DOWN") {
@@ -53,6 +56,14 @@ void Display_Button_Functions() {
       if (!btn.isFunctionExecuted() && btn.getPressedButton() == "UP") {
         btn.functionExecuted();
         selection_current--;
+      }
+      if (!btn.isFunctionExecuted() && btn.getPressedButton() == "SELECT") {
+        switch(selection_current){
+          case 3: 
+            nowDisplaying = 0x0003;
+          break;
+
+        }
       }
       break;
   }
