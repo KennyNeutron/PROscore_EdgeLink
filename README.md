@@ -27,5 +27,5 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/[your-username]/PROscore_EdgeLink.git
+   git clone https://github.com/KennyNeutron/PROscore_EdgeLink.git
    ```

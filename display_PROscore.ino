@@ -5,11 +5,11 @@
 void display_PROscore() {
   u8g2.clearBuffer();
   u8g2.setFontPosTop();
-//   u8g2.setFont(u8g2_font_boutique_bitmap_7x7_t_all);
-//   char hexStr[5];                          // Buffer to store the hex string (4 digits + "0x" + null terminator)
-//   sprintf(hexStr, "%04X", nowDisplaying);  // Format the value as a 4-digit hexadecimal string
-//   u8g2.drawStr(0, 0, hexStr);              // Print the hexadecimal value
-//   u8g2.drawStr(80, 0, "PROscore");
+  //   u8g2.setFont(u8g2_font_boutique_bitmap_7x7_t_all);
+  //   char hexStr[5];                          // Buffer to store the hex string (4 digits + "0x" + null terminator)
+  //   sprintf(hexStr, "%04X", nowDisplaying);  // Format the value as a 4-digit hexadecimal string
+  //   u8g2.drawStr(0, 0, hexStr);              // Print the hexadecimal value
+  //   u8g2.drawStr(80, 0, "PROscore");
 
 
   u8g2.setFont(u8g2_font_profont12_mr);
@@ -53,6 +53,14 @@ void display_PROscore() {
   char ch_QT[8] = "";
   sprintf(ch_QT, "QT: %d", period);
   u8g2.drawStr(90, 39, ch_QT);
+
+  char ch_BZ[8] = "";
+  sprintf(ch_BZ, "BZ: %d", payload.buzzer);
+  u8g2.drawStr(90, 52, ch_BZ);
+
+  if (NRF24L01_isAvailable) {
+    u8g2.drawStr(95, 0, "<<|>>");
+  }
 
   u8g2.sendBuffer();
 }

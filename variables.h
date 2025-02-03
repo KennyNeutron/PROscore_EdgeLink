@@ -49,6 +49,10 @@ bool TeamNameSetupMode = false;
 
 //############# SYSTEM VARIABLES ##############
 uint8_t selection_current=1;
-const byte address[6] = "ZK001";
 uint16_t nowDisplaying = 0x00000;
+//#############################################
+
+//############# NRF24L01 VARIABLES ############
+const byte address[6] = "ZK001";
+bool NRF24L01_isAvailable = false;
 //#############################################

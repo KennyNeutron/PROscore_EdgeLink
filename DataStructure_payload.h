@@ -31,6 +31,8 @@ struct Payload_Data {
   char CurrentTeamName[10] = "xxxxxxxx";
 
   bool EndOfGame=false;
+
+
 };
 
 Payload_Data payload;  // Create a variable with the above structure

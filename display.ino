@@ -17,9 +17,9 @@ void Display_Main() {
 
   u8g2.setFontPosTop();
   u8g2.setFont(u8g2_font_boutique_bitmap_7x7_t_all);
-  char hexStr[6];                         // Buffer to store the hex string (4 digits + "0x" + null terminator)
+  char hexStr[6];                          // Buffer to store the hex string (4 digits + "0x" + null terminator)
   sprintf(hexStr, "%04X", nowDisplaying);  // Format the value as a 4-digit hexadecimal string
-  u8g2.drawStr(0, 0, hexStr);             // Print the hexadecimal value
+  u8g2.drawStr(0, 0, hexStr);              // Print the hexadecimal value
   u8g2.drawStr(90, 0, "Main Menu");
 
   u8g2.setFont(u8g2_font_7x13_tf);
@@ -58,11 +58,10 @@ void Display_Main_ButtonFunctions() {
         selection_current--;
       }
       if (!btn.isFunctionExecuted() && btn.getPressedButton() == "SELECT") {
-        switch(selection_current){
-          case 3: 
+        switch (selection_current) {
+          case 3:
             nowDisplaying = 0x0003;
-          break;
-
+            break;
         }
       }
       break;

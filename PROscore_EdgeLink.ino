@@ -43,7 +43,7 @@ Buttons btn;
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 
 
-
+char SerialData[17] = " ";
 void setup() {
   Serial.begin(115200);
   Serial.println("System Starting...");
@@ -75,6 +75,15 @@ void setup() {
 void loop() {
   btn.update();
 
+  if (NRF.available()) {
+    NRF24L01_DecodeData();
+    NRF24L01_isAvailable = true;
+    //Serial.println("NRF24L01 Data Received");
+    //Serial.println("GameTime_Minute: " + String(GameTime_Minute) + " GameTime_Second: " + String(GameTime_Second) + " GameTime_Millis: " + String(GameTime_Millis));
+  } else {
+    NRF24L01_isAvailable = false;
+  }
+
   switch (nowDisplaying) {
     case 0x00000:
       Display_Main();
@@ -85,4 +94,6 @@ void loop() {
       display_PROscore_ButtonFunctions();
       break;
   }
+
+
 }
