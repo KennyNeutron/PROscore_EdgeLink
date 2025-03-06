@@ -49,11 +49,11 @@ void setup() {
   Serial.println("System Starting...");
   u8g2.begin();
 
-  // displayCenterOnly("PROscore EdgeLink");
-  // delay(2000);
-  // displayCenterOnly("Booting...");
-  // delay(2000);
-  // displayCenterOnly("Initializing...");
+  displayCenterOnly("PROscore EdgeLink");
+  delay(2000);
+  displayCenterOnly("Booting...");
+  delay(2000);
+  displayCenterOnly("Initializing...");
   btn.initialize();
   btn.setDebug(true);
   btn.enableBuzzer(false);
@@ -93,7 +93,9 @@ void loop() {
       display_PROscore();
       display_PROscore_ButtonFunctions();
       break;
+    case 0x0004:
+      display_HC05();
+      display_HC05_ButtonFunctions();
+      break;
   }
-
-
 }

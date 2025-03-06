@@ -22,11 +22,19 @@ void Display_Main() {
   u8g2.drawStr(0, 0, hexStr);              // Print the hexadecimal value
   u8g2.drawStr(90, 0, "Main Menu");
 
+  u8g2.drawStr(50, 0, String(selection_current).c_str());
+
   u8g2.setFont(u8g2_font_7x13_tf);
 
-  u8g2.drawStr(10, 15, str_menu[0].c_str());
-  u8g2.drawStr(10, 33, str_menu[1].c_str());
-  u8g2.drawStr(10, 51, str_menu[2].c_str());
+  if (selection_current > 0 && selection_current < 4) {
+    u8g2.drawStr(10, 15, str_menu[0].c_str());  //NRF24L01 Tester
+    u8g2.drawStr(10, 33, str_menu[1].c_str());  //PSWDBS TX
+    u8g2.drawStr(10, 51, str_menu[2].c_str());  //PSWDBS RX
+  } else if (selection_current >= 4) {
+    u8g2.drawStr(10, 15, str_menu[1].c_str());  //PSWDBS TX
+    u8g2.drawStr(10, 33, str_menu[2].c_str());  //PSWDBS RX
+    u8g2.drawStr(10, 51, str_menu[3].c_str());  //HC-05
+  }
 
   switch (selection_current) {
     case 1:
@@ -38,8 +46,11 @@ void Display_Main() {
     case 3:
       u8g2.drawRFrame(0, 49, 125, 15, 7);
       break;
+    case 4:
+      u8g2.drawRFrame(0, 49, 125, 15, 7);
+      break;
     default:
-      selection_current = 0;
+      selection_current = 1;
       break;
   }
   u8g2.sendBuffer();
@@ -61,6 +72,9 @@ void Display_Main_ButtonFunctions() {
         switch (selection_current) {
           case 3:
             nowDisplaying = 0x0003;
+            break;
+          case 4:
+            nowDisplaying = 0x0004;
             break;
         }
       }
