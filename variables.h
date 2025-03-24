@@ -49,7 +49,7 @@ bool TeamNameSetupMode = false;
 
 //############# SYSTEM VARIABLES ##############
 uint8_t selection_current=1;
-uint16_t nowDisplaying = 0x00000;
+uint16_t nowDisplaying = 0x0000;
 //#############################################
 
 //############# NRF24L01 VARIABLES ############

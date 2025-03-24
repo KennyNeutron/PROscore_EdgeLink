@@ -70,11 +70,14 @@ void Display_Main_ButtonFunctions() {
       }
       if (!btn.isFunctionExecuted() && btn.getPressedButton() == "SELECT") {
         switch (selection_current) {
+          case 1:
+            nowDisplaying = 0x1000;
+            break;
           case 3:
-            nowDisplaying = 0x0003;
+            nowDisplaying = 0x3000;
             break;
           case 4:
-            nowDisplaying = 0x0004;
+            nowDisplaying = 0x4000;
             break;
         }
       }
