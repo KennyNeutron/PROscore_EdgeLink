@@ -33,7 +33,7 @@ void Buttons::setDebug(bool debugStatus) {
 void Buttons::update() {
   if (!buttonToggle && (getStatus(UP) || getStatus(DOWN) || getStatus(BACK) || getStatus(SELECT))) {
     buttonToggle = true;
-    buttonFunctionExecuted=false;
+    buttonFunctionExecuted = false;
     switch (buttonPressed) {
       case UP:
         if (buttonTest) {
@@ -70,6 +70,8 @@ void Buttons::update() {
         digitalWrite(BUZZER_PIN, 0);
         Serial.println("Active Buzzer");
       }
+    } else {
+      Serial.println("Buzzer Disabled");
     }
   }
 
@@ -89,6 +91,10 @@ void Buttons::setBuzzerFrequency(uint16_t frequency) {
 
 void Buttons::setBuzzerType(String type) {
   buzzerType = type;
+}
+
+uint16_t Buttons::getBuzzerFrequency(){
+  return buzzerFrequency;
 }
 
 String Buttons::getPressedButton() {

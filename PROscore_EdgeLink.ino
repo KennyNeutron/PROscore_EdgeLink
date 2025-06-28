@@ -49,16 +49,17 @@ void setup() {
   Serial.println("System Starting...");
   u8g2.begin();
 
-  // displayCenterOnly("PROscore EdgeLink");
-  // delay(2000);
-  // displayCenterOnly("Booting...");
-  // delay(2000);
-  // displayCenterOnly("Initializing...");
-  // btn.initialize();
-  // btn.setDebug(true);
-  // btn.enableBuzzer(false);
-  // btn.setBuzzerType("active");
-  // delay(2000);
+  displayCenterOnly("PROscore EdgeLink");
+  delay(2000);
+  displayCenterOnly("Booting...");
+  delay(2000);
+  displayCenterOnly("Initializing...");
+  btn.initialize();
+  btn.setDebug(true);
+  btn.enableBuzzer(true);
+  btn.setBuzzerType("passive");
+  delay(2000);
+
 
   if (!NRF.begin()) {
     Serial.println("NRF24L01 is Broken or Hardware Not Installed");

@@ -14,6 +14,7 @@ public:
   void enableBuzzer(bool buzzerStatus);
   void setBuzzerFrequency(uint16_t frequency);
   void setBuzzerType(String type);
+  uint16_t getBuzzerFrequency();
   void functionExecuted();
   bool isFunctionExecuted();
   String getPressedButton();

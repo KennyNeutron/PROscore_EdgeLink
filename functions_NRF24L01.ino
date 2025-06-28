@@ -22,14 +22,23 @@ void NRF24L01_DecodeData(){
       BallPoss = payload.BallPoss;
 
       period = payload.period;
+
       GT_SC_sync = payload.GT_SC_sync;
 
       SetupMode = payload.SetupMode;
+
       DataToSet = payload.DataToSet;
 
       TeamNameSetupMode = payload.TeamNameSetupMode;
 
       EndOfGame = payload.EndOfGame;
+
+      if(payload.buzzer){
+        tone(BUZZER_PIN, btn.getBuzzerFrequency());
+      }else{
+        noTone(BUZZER_PIN);
+      }
+
     } else {
       TeamNameSetupMode = payload.TeamNameSetupMode;
       SerialData[0] = 'a';
