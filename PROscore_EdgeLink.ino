@@ -26,7 +26,6 @@
     - DOWN: 2
     - BACK: 13 
     - OK: 12
-
 */
 #include "Arduino.h"
 #include "DataStructure_payload.h"
