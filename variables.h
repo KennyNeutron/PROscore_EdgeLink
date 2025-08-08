@@ -53,6 +53,6 @@ uint16_t nowDisplaying = 0x0000;
 //#############################################
 
 //############# NRF24L01 VARIABLES ############
-const byte address[6] = "PT001";
+const byte address[6] = "ZK001";
 bool NRF24L01_isAvailable = false;
 //#############################################

@@ -1,32 +1,50 @@
 /*
-  PROscore EdgeLink v.1.0.0
-  Env: ESP32 Dev Module
-  Author: Kenny Neutron (KWDiolola)
-  Date Started: January 16, 2025
+  PROscore EdgeLink v1.0.0
+  Environment:           ESP32 Dev Module
+  Author:                Kenny Neutron
+  Date Started:          2025-01-16
 
   Pin Usage:
+    OLED Display:
+      SDA   - GPIO21
+      SCL   - GPIO22
+      VCC   - 3.3V
+      GND   - GND
 
-  1. OLED Display
-    - SDA: 21
-    - SCL: 22
-    - GND: GND
-    - VCC: 3.3V
+    NRF24L01:
+      CE    - GPIO4
+      CSN   - GPIO5
+      SCK   - GPIO18
+      MOSI  - GPIO23
+      MISO  - GPIO19
+      VCC   - 3.3V
+      GND   - GND
 
-  2. NRF24L01
-    - CE: 4
-    - CSN: 5
-    - SCK: 18
-    - MOSI: 23
-    - MISO: 19
-    - VCC: 3.3V
-    - GND: GND
-  
-  3. Buttons
-    - UP: 15
-    - DOWN: 2
-    - BACK: 13 
-    - OK: 12
+    Buttons:
+      UP    - GPIO15
+      DOWN  - GPIO2
+      BACK  - GPIO13
+      OK    - GPIO12
+
+  Board Settings:
+    Board:                     ESP32 Dev Module
+    Port:                      COM3
+    CPU Frequency:             80 MHz (WiFi/BT)
+    Core Debug Level:          None
+    Erase Flash Before Upload: Disabled
+    Events Run On:             Core 1
+    Flash Frequency:           80 MHz
+    Flash Mode:                QIO
+    Flash Size:                4 MB (32 Mb)
+    JTAG Adapter:              Disabled
+    Arduino Runs On:           Core 1
+    Partition Scheme:          Default 4 MB w/ SPIFFS (1.2 MB APP / 1.5 MB SPIFFS)
+    PSRAM:                     Disabled
+    Upload Speed:              921600
+    Zigbee Mode:               Disabled
 */
+
+
 #include "Arduino.h"
 #include "DataStructure_payload.h"
 #include "buttons.h"
@@ -48,11 +66,11 @@ void setup() {
   Serial.println("System Starting...");
   u8g2.begin();
 
-  displayCenterOnly("PROscore EdgeLink");
-  delay(2000);
-  displayCenterOnly("Booting...");
-  delay(2000);
-  displayCenterOnly("Initializing...");
+  // displayCenterOnly("PROscore EdgeLink");
+  // delay(2000);
+  // displayCenterOnly("Booting...");
+  // delay(2000);
+  // displayCenterOnly("Initializing...");
   btn.initialize();
   btn.setDebug(true);
   btn.enableBuzzer(true);

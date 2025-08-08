@@ -3,6 +3,42 @@
 
 
 void display_PROscore() {
+  if(!TeamNameSetupMode){
+    display_PROscore_DefaultMode();
+  }else{
+    display_PROscore_TeamNameSetupMode();
+  }
+}
+
+void display_PROscore_ButtonFunctions() {
+  if (!btn.isFunctionExecuted() && btn.getPressedButton() == "BACK") {
+    btn.functionExecuted();
+    nowDisplaying = 0x0000;
+  }
+}
+
+
+void display_PROscore_TeamNameSetupMode() {
+  u8g2.clearBuffer();
+  u8g2.setFontPosTop();
+  u8g2.setFont(u8g2_font_profont12_mr);
+
+  // Header
+  u8g2.drawStr(0, 0, "Team Name Setup Mode");
+
+  // Team name on the next line (y = 16px down for a 12-px font)
+  u8g2.drawStr(0, 16, payload.CurrentTeamName);
+
+  char ch_TN_ID[10] = "";
+  sprintf(ch_TN_ID, "TN ID: %d", payload.TN_ID);
+  u8g2.drawStr(0, 28, ch_TN_ID);
+
+  u8g2.sendBuffer();
+}
+
+
+//Function to display PROscore when not in TeamName Setup Mode
+void display_PROscore_DefaultMode(){
   u8g2.clearBuffer();
   u8g2.setFontPosTop();
   //   u8g2.setFont(u8g2_font_boutique_bitmap_7x7_t_all);
@@ -58,16 +94,13 @@ void display_PROscore() {
   sprintf(ch_BZ, "BZ: %d", payload.buzzer);
   u8g2.drawStr(90, 52, ch_BZ);
 
+  char ch_TeamNameSetupMode[8] = "";
+  sprintf(ch_TeamNameSetupMode, "TN: %d", TeamNameSetupMode);
+  u8g2.drawStr(90, 13, ch_TeamNameSetupMode);
+
   if (NRF24L01_isAvailable) {
     u8g2.drawStr(95, 0, "<<|>>");
   }
 
   u8g2.sendBuffer();
-}
-
-void display_PROscore_ButtonFunctions() {
-  if (!btn.isFunctionExecuted() && btn.getPressedButton() == "BACK") {
-    btn.functionExecuted();
-    nowDisplaying = 0x0000;
-  }
 }
